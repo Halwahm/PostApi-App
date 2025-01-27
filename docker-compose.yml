@@ -1,0 +1,51 @@
+version: "3"
+services:
+  node_app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:${PORT}"
+    # depends_on:
+    #   dbPostgres:
+    #     condition: service_healthy
+    #   redis:
+    #     condition: service_healthy
+    command: >
+      sh -c "npx prisma generate &&
+            npx prisma migrate deploy &&
+            if [ \"$NODE_ENV\" = \"production\" ]; then
+              npm run start:prod;
+            else
+              npx prisma db seed && 
+              npm run start:dev;
+            fi"
+
+  # dbPostgres:
+  #   image: postgres:16
+  #   restart: always
+  #   ports:
+  #     - "5432:5432"
+  #   env_file:
+  #     - .env
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # redis:
+  #   image: redis:7.0
+  #   restart: always
+  #   command: redis-server --save 20 1 --loglevel warning
+  #   ports:
+  #     - "6379:6379"
+  #   env_file:
+  #     - .env
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 3

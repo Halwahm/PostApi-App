@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hashtag {
+  id       String    @id @default(uuid())
+  content  String    @unique
+  posthash  PostHashtags[] 
+}
+
+model PostHashtags {
+  postId    String    
+  hashtagId String   
+  hashtag   Hashtag      @relation(fields: [hashtagId], references: [id])
+  post      Post         @relation(fields: [postId], references: [id])
+  @@id([postId, hashtagId])
+}
+
+model User {
+  id                 String     @id @default(uuid())
+  name               String
+  password           String
+  salt               String
+  role               Role       @default(Basic)
+  email              String     @unique
+  avatarImage        String?
+  profileDescription String?
+  createdAt          DateTime   @default(now())
+  isActivated        Boolean    @default(false)
+  auth               UserAuth[]
+  posts              UserLikedPosts[]      
+  subscribers        UserSubscribers[]     @relation("Subscribers")
+  subscribedTo       UserSubscribers[]     @relation("Subscribed")
+  comments           Comment[]  
+  createdPost        Post[]                                 
+}
+
+model Post {
+  id           String         @id @default(uuid())
+  name         String
+  content      String?
+  mainPhotoUrl String        
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?
+  deletedAt    DateTime?
+  createdBy    User           @relation(fields: [createdById], references: [id])
+  createdById  String          
+  comments     Comment[]
+  hashtags     PostHashtags[]
+  likedPost    UserLikedPosts[]
+  photos       PostPhotos[]
+}
+
+model PostPhotos {
+  postId       String   
+  post         Post     @relation(fields: [postId], references: [id])    
+  photoPath    String   
+  
+  @@id([postId, photoPath])
+}
+
+model Comment {
+  id             String    @id @default(uuid())
+  content        String
+  commenter      User      @relation(fields: [commenterId], references: [id])
+  commenterId    String    
+  replyToComment Comment?  @relation("Replies", fields: [replyCommentId], references: [id])
+  replyCommentId String?
+  post           Post      @relation(fields: [postId], references: [id])
+  postId         String    
+  replies        Comment[] @relation("Replies")
+  createdAt      DateTime  @default(now())
+}
+
+model UserAuth {
+  id               String     @id @default(uuid())
+  userId           String     
+  refreshToken     String     
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime? 
+  isTokenActive    Boolean    @default(false)
+  ip               String     @default("")
+  host             String     @default("")
+  userAgent        String     @default("")
+  user             User       @relation(fields: [userId], references: [id])
+}
+
+model UserSubscribers {
+  subscriberId  String  
+  subscriber    User    @relation("Subscribers", fields: [subscriberId], references: [id])
+  userId        String  
+  user          User    @relation("Subscribed", fields: [userId], references: [id])
+  
+  @@id([subscriberId, userId])
+}
+
+model UserLikedPosts {
+  userId    String        
+  user      User          @relation(fields: [userId], references: [id])
+  postId    String        
+  post      Post          @relation(fields: [postId], references: [id])
+  createdAt DateTime      @default(now())
+  @@id([userId, postId])
+}
+
+enum Role {
+  Basic
+  Admin
+}

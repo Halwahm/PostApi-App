@@ -1,0 +1,7 @@
+node_modules
+*.log
+.env
+.vscode
+uploads
+confirmationCodes.json
+resetCodes.json

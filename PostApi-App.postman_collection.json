@@ -1,0 +1,885 @@
+{
+  "info": {
+    "_postman_id": "23235ea5-bdf6-4062-bc64-78414cee143d",
+    "name": "PostApi-App",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29528590"
+  },
+  "item": [
+    {
+      "name": "posts",
+      "item": [
+        {
+          "name": "/getPosts",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"page\": 1,\r\n  \"pageSize\": 5,\r\n  //\"sortBy\": \"createdById\", // createdAt || likes || name || createdById\r\n  \"viewAllUsers\": \"true\",\r\n  \"sortOrder\": \"desc\",\r\n   \"filters\": {\r\n    \"createdAt\": {\r\n      \"start\": \"2024-01-01\",\r\n      \"end\": \"2024-12-31\"\r\n    },\r\n    \"likes\": {\r\n      \"start\": \"2024-01-01\",\r\n      \"end\": \"2024-12-31\"\r\n    },\r\n    \"comments\": {\r\n      \"start\": \"2024-01-01\",\r\n      \"end\": \"2024-12-31\"\r\n    }//,\r\n    //\"subscriptions\": [\"Dock\"],\r\n    //\"hashtags\": [\"#vox\"]\r\n    },\r\n   \"search\": {\r\n     //\"subscriptions\": \"\",\r\n     //\"hashtag\": \"#p\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/posts/all",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts", "all"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts:id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "fd8e5ec0-bd93-40f0-a388-402b34d07c5e",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/posts?id=7e5b2cea-e2b1-4099-a3ad-12b9efee6574",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "7e5b2cea-e2b1-4099-a3ad-12b9efee6574"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "my3n",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "my content3",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": ["/D:/My Files/app photos/cat2.jpg", "/D:/My Files/app photos/cat3.jpg"]
+                },
+                {
+                  "key": "hashtags",
+                  "value": "text",
+                  "type": "text"
+                },
+                {
+                  "key": "hashtags",
+                  "value": "me",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/posts/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "id",
+                  "value": "a3deeaec-aa0f-488f-a002-918680d544cf",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "my2",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "my content2",
+                  "type": "text"
+                },
+                {
+                  "key": "photos",
+                  "type": "file",
+                  "src": [
+                    "/D:/My Files/photo_2024-04-10_09-40-07.jpg",
+                    "/D:/My Files/ssh.png",
+                    "/D:/My Files/cat3.jpg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts/:id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/posts?id=9e22c01e-46a3-4899-aa2f-0b04de8e1115",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "9e22c01e-46a3-4899-aa2f-0b04de8e1115"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts/likes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/posts/likes?postId=7e5b2cea-e2b1-4099-a3ad-12b9efee6574",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts", "likes"],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "7e5b2cea-e2b1-4099-a3ad-12b9efee6574"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts/likes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/posts/likes?postId=7e5b2cea-e2b1-4099-a3ad-12b9efee6574",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts", "likes"],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "7e5b2cea-e2b1-4099-a3ad-12b9efee6574"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/posts/likes",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/posts/likes?postId=7e5b2cea-e2b1-4099-a3ad-12b9efee6574",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["posts", "likes"],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "7e5b2cea-e2b1-4099-a3ad-12b9efee6574"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "/users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/?search=Tanya",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", ""],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Tanya"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/users:id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/:id?id=29b99f4b-1704-4ec1-8292-7dea9306884a",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", ":id"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "29b99f4b-1704-4ec1-8292-7dea9306884a"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/users/:id/subscribers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/:id/subscribers?id&search",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", ":id", "subscribers"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": null
+                },
+                {
+                  "key": "search",
+                  "value": null
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/users/:id/subscribed",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/:id/subscribed?id&search",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", ":id", "subscribed"],
+              "query": [
+                {
+                  "key": "id",
+                  "value": null
+                },
+                {
+                  "key": "search",
+                  "value": null
+                }
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/statistics",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/users/all/statistics?startDate=22-05-2024&endDate=24-09-2024",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["users", "all", "statistics"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "22-05-2024"
+                },
+                {
+                  "key": "endDate",
+                  "value": "24-09-2024"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "comments",
+      "item": [
+        {
+          "name": "/comments/:postId",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/comments?postId=fd8e5ec0-bd93-40f0-a388-402b34d07c5e",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["comments"],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "fd8e5ec0-bd93-40f0-a388-402b34d07c5e"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/comments",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "content",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "postId",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "replyToCommentId",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/comments/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["comments", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/comments/:id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "content",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "commentId",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "content",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/comments/:commentId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["comments", ":commentId"],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/comments/:id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/comments/:commentId?commentId",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["comments", ":commentId"],
+              "query": [
+                {
+                  "key": "commentId",
+                  "value": null
+                }
+              ],
+              "variable": [
+                {
+                  "key": "commentId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "/register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Me1",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "halaleenko1325476@mail.ru",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Pass$word1234",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/register/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["register", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseJson = pm.response.json();\r",
+                  "\r",
+                  "if (responseJson.accessToken) {\r",
+                  "    pm.environment.set(\"accessToken\", responseJson.accessToken);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "halaleenko1325476@mail.ru",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Pass$word1234",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/logout",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Clear accessToken\", function () {\r",
+                  "  const jsonData = pm.response.json();\r",
+                  "  if (jsonData.message === \"Logged out successfully\") {\r",
+                  "    pm.environment.unset(\"accessToken\");\r",
+                  "  }\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/auth/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "logout"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/register/confirm",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "halaleenko1325476@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "code",
+                  "value": "85857",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/register/confirm",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["register", "confirm"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/password/forgot",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "halaleenko1325476@gmail.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/auth/password/forgot",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "password", "forgot"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/password/reset",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "halaleenko1325476@gmail.com",
+                  "type": "text"
+                },
+                {
+                  "key": "code",
+                  "value": "55587",
+                  "type": "text"
+                },
+                {
+                  "key": "newPassword",
+                  "value": "Pass$word12345",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:3001/auth/password/reset",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["auth", "password", "reset"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
